@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo número oculto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Jogo do Número Oculto</h1>
+
+    <div id="setup">
+      <label for="numeroSecreto">Jogador 1: Escolha um número de 1 a 100</label>
+      <input type="number" id="numeroSecreto" min="1" max="100">
+      <button onclick="iniciarJogo()">Iniciar Jogo</button>
+    </div>
+
+    <div id="jogo" class="escondido">
+      <p>Jogador 2: Você tem <span id="tentativasRestantes">5</span> tentativas.</p>
+      <input type="number" id="chute" placeholder="Digite seu palpite">
+      <button onclick="verificarChute()">Chutar</button>
+      <p id="feedback"></p>
+      <button id="btnReiniciar" class="escondido" onclick="reiniciarJogo()">Jogar Novamente</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

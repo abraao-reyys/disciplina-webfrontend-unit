@@ -1,0 +1,81 @@
+* {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Oswald", sans-serif;
+      background: #14a8e3;
+      background: linear-gradient(90deg, rgba(20, 168, 227, 1) 0%, rgba(87, 199, 133, 1) 29%, rgba(237, 221, 83, 1) 100%);
+      padding: 20px;
+      margin-top: 100px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 50px;
+    }
+
+    .tarefa{
+        border-radius: 15px;
+        border: solid ;
+    }  
+    #inputArea {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #inputArea input {
+      padding: 10px;
+      width: 300px;
+    }
+    #inputArea button {
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .kanban {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .column {
+      background: #ddd;
+      border-radius: 5px;
+      width: 22%;
+      min-height: 300px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .column h2 {
+      margin: 0 0 10px 0;
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      color: white;
+    }
+    .aberto { background-color: #f9b233; }
+    .negociacao{ background-color: #f58634; }
+    .andamento { background-color: #0077c8; }
+    .entregue { background-color: #7ac943; }
+
+    .card {
+      background: white;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: grab;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card button {
+      background: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+      padding: 2px 5px;
+    }

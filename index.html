@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Projetos</title>
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    }
+
+    body {
+    background: #f9f9f9;
+    color: #333;
+    min-height: 100vh;
+    padding: 20px;
+    }
+
+    .container {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+    }
+
+    h1 {
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    color: #222;
+    }
+
+    .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    }
+
+    .card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: #333;
+    width: 230px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 600px) {
+    .card {
+        width: 100%;
+    }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Projetos da Disciplina</h1>
+    <div class="grid">
+      <a href="./BankSE/index.html" class="card">BankSE</a>
+      <a href="./Calculadora/index.html" class="card">Calculadora</a>
+      <a href="./Jogo da memória/index.html" class="card">Jogo da Memória</a>
+      <a href="./Jogo número oculto/index.html" class="card">Jogo do Número Oculto</a>
+      <a href="./Kanban/index.html" class="card">Kanban</a>
+      <a href="./Lâmpada/index.html" class="card">Lâmpada</a>
+      <a href="./Quiz de esporte/index.html" class="card">Quiz de Esporte</a>
+      <a href="./Selecione um carro/index.html" class="card">Selecione um Carro</a>
+    </div>
+  </div>
+</body>
+</html>

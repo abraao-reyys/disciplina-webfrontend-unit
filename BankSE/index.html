@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./main.css">
+
+    <title>BankSE</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="./assets/images/img_logo.png" alt="Logo do BankSE">
+        </div>
+        <div class="user-menu">
+            <div class="user-menu-text">Olá, Fulano</div>
+            <img src="./assets/images/icon_user_.png" alt="Ícone do Usuário">
+        </div>
+    </header>
+    <main>
+        <div class="dash-col">
+            <div class="bank-balance">
+                <div class="area-title">Conta</div>
+                <div class="balance-value-container">
+                    <div id="balance-value">R$ 0,00</div>
+                </div>
+            </div>
+            <div class="advertising"></div>
+            <div class="bank-actions">
+                <div onclick="showArea('pix')" class="bank-action">
+                    <img src="./assets/images/icon_pix_.png" alt="Ícone do PIX">
+                    <div class="action-name">Área PIX</div>
+                </div>
+                <div onclick="showArea('pay')" class="bank-action">
+                    <img src="./assets/images/icon _dollar_.png" alt="Ícone de Cifrão">
+                    <div class="action-name">Pagar</div>
+                </div>
+                <div onclick="showArea('invest')" class="bank-action">
+                    <img src="./assets/images/icon _graph_.png" alt="Ícone de Gráfico">
+                    <div class="action-name">Investir</div>
+                </div>
+            </div>
+        </div>
+        <div class="dash-col">
+            <div class="values-info">
+                <div class="movement-info">
+                    <div class="movement-title">Entradas</div>
+                    <div id="movement-in">R$ 0,00</div>
+                </div>
+                <div class="movement-info">
+                    <div class="movement-title">Saídas</div>
+                    <div id="movement-out">R$ 0,00</div>
+                </div>
+            </div>
+            <div id="latestTransactionsArea" class="latest-transactions">
+                <div class="area-title">Últimas transações</div>
+                <div class="latest-transactions-content">
+                    <div class="area-alert">Não constam transações.</div>
+                    <div class="card-transaction output">
+                        <img src="./assets/images/icon _enviar_.png" alt="Ícone de Saída">
+                        <div class="card-content">
+                            <div class="card-wrap">
+                                <div class="card-title"><strong>Saída |</strong></div>
+                                <div class="card-transaction-date">01/01/2024 - 01:01:05</div>
+                            </div>
+                            <div class="card-transaction-info"><strong>Tipo:</strong> Transferência enviada</div>
+                            <div class="card-transaction-info"><strong>Para:</strong> 000.000.000-00</div>
+                            <div class="card-wrap">
+                                <div class="card-transaction-info"><strong>ID:</strong> 20240101010105</div>
+                                <div class="card-transaction-info"><strong>Valor:</strong> R$ 10,00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-transaction input">
+                        <img src="./assets/images/_icon _receber_.png" alt="Ícone de Rebimento">
+                        <div class="card-content">
+                            <div class="card-wrap">
+                                <div class="card-title"><strong>Entrada |</strong></div>
+                                <div class="card-transaction-date">01/01/2024 - 01:01:05</div>
+                            </div>
+                            <div class="card-transaction-info"><strong>Tipo:</strong> Transferência enviada</div>
+                            <div class="card-transaction-info"><strong>Para:</strong> 000.000.000-00</div>
+                            <div class="card-wrap">
+                                <div class="card-transaction-info"><strong>ID:</strong> 20240101010105</div>
+                                <div class="card-transaction-info"><strong>Valor:</strong> R$ 10,00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-transaction input">
+                        <img src="./assets/images/_icon _receber_.png" alt="Ícone de Rebimento">
+                        <div class="card-content">
+                            <div class="card-wrap">
+                                <div class="card-title"><strong>Entrada |</strong></div>
+                                <div class="card-transaction-date">01/01/2024 - 01:01:05</div>
+                            </div>
+                            <div class="card-transaction-info"><strong>Tipo:</strong> Transferência enviada</div>
+                            <div class="card-transaction-info"><strong>Para:</strong> 000.000.000-00</div>
+                            <div class="card-wrap">
+                                <div class="card-transaction-info"><strong>ID:</strong> 20240101010105</div>
+                                <div class="card-transaction-info"><strong>Valor:</strong> R$ 10,00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="pixArea" class="pix-area">
+                <div class="area-title">Área PIX</div>
+                <div class="pix-area-container">
+                    <div class="pix-area-content">
+                        <div onclick="showArea('latest')" class="transactions-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
+                                <path fill="#1e761f" d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" stroke-width="1" stroke="#1e761f" />
+                            </svg>
+                            <div class="transactions-button-text">Transações</div>
+                        </div>
+                        <div class="pix-toggle">
+                            <div class="pix-receive active">
+                                <img src="./assets/images/_icon _receber_.png" alt="Ícone de Rebimento">
+                                <div class="pix-toggle-text">Receber</div>
+                            </div>
+                            <div class="pix-transfer">
+                                <img src="./assets/images/icon _enviar_.png" alt="Ícone de Saída">
+                                <div class="pix-toggle-text">Transferir</div>
+                            </div>
+                        </div>
+                        <div class="pix-form">
+                            <form action="#" class="receive-active">
+                                <div>
+                                    <label for="ikey">Chave PIX</label>
+                                    <input type="text" id="ikey" placeholder="Insira a chave pix" required>
+                                </div>
+                                <div>
+                                    <label for="ipixValue">Valor R$</label>
+                                    <input type="text" id="ipixValue" placeholder="0,00" required>
+                                </div>
+                                <div class="form-message">Todos os campos devem ser preenchidos!</div>
+                                <button type="submit">Transferir</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="payArea" class="pay-area"">
+                <div class="area-title">Pagar</div>
+                <div class="pay-area-container">
+                    <div class="area-alert">Sistema indisponível. <br> Tente novamente mais tarde.</div>
+                </div>
+            </div>
+            <div id="investArea" class="invest-area">
+                <div class="area-title">Investir</div>
+                <div class="invest-area-container">
+                    <div class="area-alert">Sistema indisponível. <br> Tente novamente mais tarde.</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer> Emerson Oliveira Souza © 2025</footer>
+    <script src="./script.js"></script>
+</body>
+</html>
