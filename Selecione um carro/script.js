@@ -1,86 +1,187 @@
-const brancoBtn = document.getElementById("branco");
-const vermelhoBtn = document.getElementById("vermelho");
-const resetarBtn = document.getElementById("resetar");
-const acelerarBtn = document.getElementById("acelerar");
-const desacelerarBtn = document.getElementById("desacelerar");
+const botaoBranco = document.getElementById("branco");
+const botaoVermelho = document.getElementById("vermelho");
+const botaoResetar = document.getElementById("resetar");
+const botaoAcelerar = document.getElementById("acelerar");
+const botaoDesacelerar = document.getElementById("desacelerar");
+const carroBranco = document.getElementById("white");
+const carroVermelho = document.getElementById("red");
+const resultado = document.getElementById("result");
+const somMotor = document.getElementById("engineSound");
+const caixaTexto = document.querySelector(".text");
 
-const whiteCar = document.getElementById("white");
-const redCar = document.getElementById("red");
-const result = document.getElementById("result");
+let carroSelecionado = null;
+let idIntervalo = null;
+let velocidade = 0;
+let velocidadeLateral = 0;
+let escala = 1;
+const velocidadeMaxima = 5;
+const velocidadeMinima = -5;
+const escalaMaxima = 1.2;
+const escalaMinima = 0.8;
+const limiteLateral = 150;
 
-let selectedCar = null;
-let intervalId = null;
-let speed = 2;
-
-// Inicialmente esconder botões de ação
 function esconderBotoes() {
-    acelerarBtn.style.display = "none";
-    desacelerarBtn.style.display = "none";
-    resetarBtn.style.display = "none";
+    botaoAcelerar.style.display = "none";
+    botaoDesacelerar.style.display = "none";
+    botaoResetar.style.display = "none";
 }
 esconderBotoes();
 
-// Seleção dos carros
-brancoBtn.addEventListener("click", () => {
-    console.log("Botão BRANCO clicado");
-    selectedCar = whiteCar;
-    result.textContent = "Branco";
+function selecionarCarro(carro, nome) {
+    carroSelecionado = carro;
+    resultado.textContent = nome;
+    caixaTexto.classList.add("hidden");
     mostrarBotoes();
-    pararMovimento();
-});
-
-vermelhoBtn.addEventListener("click", () => {
-    console.log("Botão VERMELHO clicado");
-    selectedCar = redCar;
-    result.textContent = "Vermelho";
-    mostrarBotoes();
-    pararMovimento();
-});
+    somMotor.play();
+}
 
 function mostrarBotoes() {
-    acelerarBtn.style.display = "block";
-    desacelerarBtn.style.display = "block";
-    resetarBtn.style.display = "block";
+    botaoAcelerar.style.display = "block";
+    botaoDesacelerar.style.display = "block";
+    botaoResetar.style.display = "block";
 }
 
-// Funções de movimento
-function moverCarro(velocidade) {
-    if (!selectedCar) return;
-    pararCarro(); // para evitar múltiplos intervalos
-
+function iniciarMovimento() {
+    if (idIntervalo) clearInterval(idIntervalo);
     const pista = document.querySelector(".container");
-    const pistaWidth = pista.offsetWidth;
-    const carroWidth = selectedCar.offsetWidth;
+    const larguraPista = pista.offsetWidth;
+    const larguraCarro = carroSelecionado.offsetWidth;
+    const centroX = 270;
 
-    intervalId = setInterval(() => {
-        let currentLeft = parseInt(window.getComputedStyle(selectedCar).left) || 0;
+    idIntervalo = setInterval(() => {
+        if (!carroSelecionado) return;
 
-        // Calcula nova posição
-        let novaPosicao = currentLeft + velocidade;
+        let esquerdaAtual = parseFloat(window.getComputedStyle(carroSelecionado).left) || 0;
+        let topoAtual = parseFloat(window.getComputedStyle(carroSelecionado).top) || 0;
 
-        // Limites: entre 0 e (largura da pista - largura do carro)
-        const limiteDireita = pistaWidth - carroWidth;
-        if (novaPosicao < 0) novaPosicao = 0;
-        if (novaPosicao > limiteDireita) novaPosicao = limiteDireita;
+        let novaEsquerda = esquerdaAtual + velocidadeLateral;
+        let novoTopo = topoAtual + velocidade;
 
-        selectedCar.style.left = novaPosicao + "px";
-    }, 30);
+        escala = 1 + (novoTopo - 140) / 400;
+        escala = Math.max(escalaMinima, Math.min(escalaMaxima, escala));
 
+        novaEsquerda = Math.max(centroX - limiteLateral, Math.min(novaEsquerda, centroX + limiteLateral));
+        novoTopo = Math.max(0, Math.min(novoTopo, 140));
+
+        carroSelecionado.style.left = novaEsquerda + "px";
+        carroSelecionado.style.top = novoTopo + "px";
+        carroSelecionado.style.transform = `scale(${escala})`;
+
+        somMotor.playbackRate = 1 + Math.abs(velocidade) / velocidadeMaxima;
+    }, 16);
 }
 
-function pararCarro() {
-    clearInterval(intervalId);
+function pararMovimento() {
+    velocidade = 0;
+    velocidadeLateral = 0;
+    somMotor.playbackRate = 1;
 }
 
-// Botões de controle
-acelerarBtn.addEventListener("click", () => moverCarro(speed));
-desacelerarBtn.addEventListener("click", () => moverCarro(-speed));
-
-resetarBtn.addEventListener("click", () => {
-    pararCarro();
-    whiteCar.style.left = "205px";
-    redCar.style.left = ""; // Resetando para CSS original (right: 205px)
-    selectedCar = null;
-    result.textContent = "?";
+function resetarJogo() {
+    if (idIntervalo) clearInterval(idIntervalo);
+    velocidade = 0;
+    velocidadeLateral = 0;
+    escala = 1;
+    carroBranco.style.left = "270px";
+    carroBranco.style.top = "140px";
+    carroBranco.style.transform = "scale(1)";
+    carroBranco.style.display = "block";
+    carroVermelho.style.left = "270px";
+    carroVermelho.style.top = "140px";
+    carroVermelho.style.transform = "scale(1)";
+    carroVermelho.style.display = "block";
+    carroSelecionado = null;
+    resultado.textContent = "?";
+    caixaTexto.classList.remove("hidden");
     esconderBotoes();
+    somMotor.pause();
+    somMotor.currentTime = 0;
+}
+
+botaoBranco.addEventListener("click", (e) => {
+    e.stopPropagation();
+    selecionarCarro(carroBranco, "Branco");
+    iniciarMovimento();
+});
+botaoVermelho.addEventListener("click", (e) => {
+    e.stopPropagation();
+    selecionarCarro(carroVermelho, "Vermelho");
+    iniciarMovimento();
+});
+carroBranco.addEventListener("click", (e) => {
+    e.stopPropagation();
+    selecionarCarro(carroBranco, "Branco");
+    iniciarMovimento();
+});
+carroVermelho.addEventListener("click", (e) => {
+    e.stopPropagation();
+    selecionarCarro(carroVermelho, "Vermelho");
+    iniciarMovimento();
+});
+botaoResetar.addEventListener("click", (e) => {
+    e.stopPropagation();
+    resetarJogo();
+});
+
+botaoAcelerar.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
+    velocidade = -10;
+    iniciarMovimento();
+});
+botaoAcelerar.addEventListener("mouseup", (e) => {
+    e.stopPropagation();
+    pararMovimento();
+});
+botaoDesacelerar.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
+    velocidade = 10;
+    iniciarMovimento();
+});
+botaoDesacelerar.addEventListener("mouseup", (e) => {
+    e.stopPropagation();
+    pararMovimento();
+});
+
+document.addEventListener("keydown", (e) => {
+    e.preventDefault();
+    switch (e.key) {
+        case "1":
+            selecionarCarro(carroBranco, "Branco");
+            iniciarMovimento();
+            break;
+        case "2":
+            selecionarCarro(carroVermelho, "Vermelho");
+            iniciarMovimento();
+            break;
+        case "ArrowUp":
+            velocidade = -10;
+            iniciarMovimento();
+            break;
+        case "ArrowDown":
+            velocidade = 10;
+            break;
+        case "ArrowLeft":
+            velocidadeLateral = -10;
+            iniciarMovimento();
+            break;
+        case "ArrowRight":
+            velocidadeLateral = 10;
+            iniciarMovimento();
+            break;
+        case "r":
+        case "R":
+            resetarJogo();
+            break;
+    }
+});
+
+document.addEventListener("keyup", (e) => {
+    switch (e.key) {
+        case "ArrowUp":
+        case "ArrowDown":
+        case "ArrowLeft":
+        case "ArrowRight":
+            pararMovimento();
+            break;
+    }
 });

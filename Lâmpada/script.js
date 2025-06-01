@@ -1,13 +1,15 @@
-const lamp = document.getElementById("lamp");
-let isOn = false; // Estado da lâmpada
+const lamp = document.getElementById('lamp');
+const bg = document.querySelector('body');
 
-lamp.addEventListener("click", () => {
-    isOn = !isOn; // Alterna o estado
+lamp.addEventListener('click', interruptor);
 
-    if (isOn) {
-        lamp.src = "assets/lamp_on.png"; // Lâmpada acesa
-    } 
-    else {
-        lamp.src = "assets/lamp_off.png"; // Lâmpada apagada
+function interruptor() {
+    const imgAtual = lamp.getAttribute('src');
+    if (imgAtual == 'assets/lamp_off.png') {
+        lamp.setAttribute('src', 'assets/lamp_on.png');
+        bg.style.background = 'radial-gradient(circle, white 8%, yellow 100%)';
+    } else {
+        lamp.setAttribute('src', 'assets/lamp_off.png');
+        bg.style.background = 'radial-gradient(circle, white 8%, black 100%)';
     }
-});
+}
